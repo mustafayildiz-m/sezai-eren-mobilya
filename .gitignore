@@ -1,0 +1,8 @@
+.env
+storage/*.sqlite
+storage/ratelimit/*
+public/uploads/*
+!public/uploads/.gitkeep
+public/assets/seed/raw/
+node_modules/
+.phpunit.cache/
