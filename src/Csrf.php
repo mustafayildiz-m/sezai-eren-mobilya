@@ -20,7 +20,7 @@ final class Csrf
     {
         $t = $_POST['_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? null;
         if (!self::verify($t)) {
-            http_response_code(419);
+            http_response_code(403);
             exit('Oturum süresi doldu, sayfayı yenileyip tekrar deneyin.');
         }
     }

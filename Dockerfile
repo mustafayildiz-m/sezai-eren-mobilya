@@ -13,3 +13,4 @@ WORKDIR /var/www/html
 COPY . .
 RUN mkdir -p storage/ratelimit public/uploads && chown -R www-data:www-data storage public/uploads
 EXPOSE 80
+ENTRYPOINT ["/var/www/html/docker-entrypoint.sh"]

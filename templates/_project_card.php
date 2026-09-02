@@ -6,7 +6,7 @@
     <?php else: ?>
       <div class="grid h-full w-full place-items-center bg-beige text-walnut/30 font-serif text-2xl">Görsel yok</div>
     <?php endif; ?>
-    <div class="absolute inset-0 bg-gradient-to-t from-ground/80 via-ground/10 to-transparent opacity-80 transition group-hover:opacity-95"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-ground/95 via-ground/40 to-ground/5 transition group-hover:from-ground"></div>
     <div class="absolute inset-x-0 bottom-0 p-5 text-cream">
       <span class="text-[11px] uppercase tracking-widest2 text-copper-light"><?= e($p['category_name'] ?? 'Proje') ?><?= $p['location'] ? ' · ' . e($p['location']) : '' ?></span>
       <h3 class="mt-1 font-serif text-2xl font-light leading-tight"><?= e($p['title']) ?></h3>

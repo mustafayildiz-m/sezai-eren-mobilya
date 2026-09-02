@@ -62,7 +62,7 @@ $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . r
       <span class="block h-px w-5 bg-current"></span><span class="mt-1.5 block h-px w-5 bg-current"></span>
     </button>
   </div>
-  <div data-menu class="fixed inset-0 -z-10 flex flex-col items-center justify-center gap-7 bg-ground/98 text-cream opacity-0 pointer-events-none transition-opacity duration-500 [&.open]:opacity-100 [&.open]:pointer-events-auto md:hidden">
+  <div data-menu class="fixed inset-0 -z-10 flex flex-col items-center justify-center gap-7 bg-ground text-cream opacity-0 pointer-events-none transition-opacity duration-500 [&.open]:opacity-100 [&.open]:pointer-events-auto md:hidden">
     <?php foreach ($nav as [$href, $label]): ?>
       <a href="<?= $href ?>" class="font-serif text-4xl font-light"><?= $label ?></a>
     <?php endforeach; ?>
