@@ -47,6 +47,9 @@ $CATS = [
 /*
  * Projeler. 'photos' → storage/kaynak-foto içindeki dosya adları (ilk foto kapak olur).
  *
+ * 'render' => [...]  → o dosyalar fotoğraf değil 3D tasarım görselidir; alt
+ * metninde açıkça belirtilir. Render'ı çekilmiş fotoğraf gibi sunmak yanıltıcı olur.
+ *
  * NOT: 'location' bilerek boş bırakıldı. Fotoğrafların hangi ilçede çekildiğini
  * bilmiyoruz ve uydurma konum hem müşteriye hem Google'a yanlış bilgi olur.
  * Sezai usta hatırladıkça yönetim panelinden ilçe girildiğinde ilgili proje
@@ -155,7 +158,8 @@ $PROJECTS = [
     ['cat' => 'İç Kapı & Duvar Paneli', 'featured' => 1,
      'title' => 'Taş Duvar ve Ahşap Lamel Giriş Holü',
      'photos' => ['51.jpeg', '49.jpeg', '50.jpeg', '57.jpeg'],
-     'desc' => "Salon ile giriş holünü duvar örmeden ayıran dikey ahşap lamel bölücü. Arkasındaki taş dokulu duvarla birlikte holü tanımlıyor, ışığı kesmiyor. Aynı ahşap ton kapı kasasında ve tavan kirişlerinde tekrarlanarak mekân bütünlüğü kuruldu."],
+     'render' => ['57.jpeg'],
+     'desc' => "Salon ile giriş holünü duvar örmeden ayıran dikey ahşap lamel bölücü. Arkasındaki taş dokulu duvarla birlikte holü tanımlıyor, ışığı kesmiyor. Aynı ahşap ton kapı kasasında ve tavan kirişlerinde tekrarlanarak mekân bütünlüğü kuruldu. Galerideki son görsel, işe başlamadan önce hazırladığımız 3D tasarımdır; diğerleri uygulanmış hâlinin fotoğraflarıdır."],
 
     ['cat' => 'İç Kapı & Duvar Paneli', 'featured' => 0,
      'title' => 'Buzlu Camlı Beyaz Çift Kanat Kapı',
@@ -364,9 +368,12 @@ foreach ($PROJECTS as $p) {
         if (!is_file($path)) { echo "  ! görsel yok: $f\n"; continue; }
         $r = Image::process($path, $uploads);
         // Alt metin: ne olduğunu + kategoriyi söyler. Google Görseller'in okuduğu alan.
-        $alt = $k === 0
-            ? $p['title'] . ' – ' . $p['cat'] . ', Sezai Eren Mobilya'
-            : $p['title'] . ' detay ' . ($k + 1) . ' – Sezai Eren Mobilya';
+        $isRender = in_array($f, $p['render'] ?? [], true);
+        $alt = match (true) {
+            $isRender => $p['title'] . ' – 3D tasarım görseli, Sezai Eren Mobilya',
+            $k === 0 => $p['title'] . ' – ' . $p['cat'] . ', Sezai Eren Mobilya',
+            default => $p['title'] . ' detay ' . ($k + 1) . ' – Sezai Eren Mobilya',
+        };
         $imgId = ImageModel::add($id, $r['filename'], $r['thumb'], $alt);
         if ($cover === null) { $cover = $imgId; Project::setCover($id, $imgId); }
         $photoCount++;

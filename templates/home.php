@@ -2,7 +2,7 @@
 <!-- HERO -->
 <section class="relative isolate min-h-[100svh] overflow-hidden bg-ground text-cream">
   <div class="absolute inset-0 -z-10">
-    <img data-hero-img src="/assets/hero.webp" alt="Ankara özel tasarım mutfak dolabı" width="1600" height="1067" fetchpriority="high" class="h-full w-full object-cover animate-kenburns opacity-70" style="transform: translate(var(--mx,0), var(--my,0))">
+    <img data-hero-img src="/assets/hero.webp" alt="Doğal kenar ceviz tabakalı siyah TV ünitesi – Sezai Eren Mobilya" width="1600" height="900" fetchpriority="high" class="h-full w-full object-cover animate-kenburns opacity-70" style="transform: translate(var(--mx,0), var(--my,0))">
     <div class="absolute inset-0 bg-gradient-to-b from-ground/60 via-ground/40 to-ground"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-ground/80 via-transparent to-transparent"></div>
   </div>

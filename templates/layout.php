@@ -42,7 +42,7 @@ $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . r
 <meta property="og:image" content="<?= e($ogImage) ?>">
 <meta property="og:image:alt" content="<?= e($title) ?>">
 <meta property="og:image:width" content="1600">
-<meta property="og:image:height" content="1067">
+<meta property="og:image:height" content="900">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($title) ?>">
 <meta name="twitter:description" content="<?= e($description) ?>">
