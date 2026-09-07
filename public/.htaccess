@@ -1,5 +1,18 @@
 Options -Indexes
 RewriteEngine On
+
+# Let's Encrypt / AutoSSL doğrulaması router'a düşmesin
+RewriteRule ^\.well-known/ - [L]
+
+# https zorunlu
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# www yok (tek kanonik adres: sezaierenmobilya.com)
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# her şey index.php'ye
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [L,QSA]
@@ -13,4 +26,10 @@ RewriteRule ^ index.php [L,QSA]
   Header set X-Content-Type-Options "nosniff"
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
+
+# nokta ile başlayan dosyalar (.env, .git...) hiçbir koşulda servis edilmesin
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
