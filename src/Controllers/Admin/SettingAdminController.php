@@ -10,7 +10,8 @@ use App\View;
 
 final class SettingAdminController
 {
-    private const KEYS = ['site_name', 'tagline', 'phone', 'whatsapp', 'email', 'address', 'instagram', 'working_hours', 'map_embed', 'about', 'years', 'projects_done', 'happy_clients'];
+    private const KEYS = ['site_name', 'tagline', 'phone', 'whatsapp', 'email', 'address', 'instagram', 'working_hours', 'map_embed', 'about', 'years', 'projects_done', 'happy_clients',
+        'gsc_verification', 'map_url', 'latitude', 'longitude'];
 
     public static function index(array $p = []): string
     {

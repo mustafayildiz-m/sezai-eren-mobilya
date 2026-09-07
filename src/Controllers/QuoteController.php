@@ -61,6 +61,7 @@ final class QuoteController
         $d = $_SESSION['quote_done'] ?? null;
         if (!$d) redirect('/teklif-al');
         $text = "Merhaba, az önce web sitenizden teklif formu doldurdum.\nAd: {$d['name']}\nİş: {$d['job_type']}";
-        return View::render('quote_done', ['title' => 'Teşekkürler', 'wa' => self::wa($text)]);
+        // Dönüşüm sonrası sayfa arama sonuçlarında görünmemeli.
+        return View::render('quote_done', ['title' => 'Teşekkürler', 'robots' => 'noindex, nofollow', 'wa' => self::wa($text)]);
     }
 }

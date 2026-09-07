@@ -8,7 +8,7 @@
 <section class="py-20 md:py-28">
   <div class="container-x grid items-center gap-14 lg:grid-cols-2">
     <div class="img-zoom overflow-hidden rounded-[2rem] reveal">
-      <img src="/assets/about.webp" alt="Sezai Eren Mobilya atölyesi" width="1600" height="1088" loading="lazy" class="aspect-[4/5] w-full object-cover">
+      <img src="/assets/about.webp" alt="Sezai Eren, Siteler'deki atölyesinde ürettiği masalarla" width="1242" height="1378" loading="lazy" class="aspect-[4/5] w-full object-cover">
     </div>
     <div class="reveal reveal-delay-1">
       <h2 class="font-serif text-3xl md:text-4xl">Sezai Eren kimdir?</h2>

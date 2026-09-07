@@ -1,9 +1,14 @@
 .env
+# Veritabanları asla git'e girmez (müşteri teklifleri içerebilir)
 storage/*.sqlite
+storage/**/*.sqlite
+storage/canli-yedek/
 storage/ratelimit/*
+# Sezai usta'nın orijinal fotoğrafları (işlenmiş webp'ler uploads'a üretilir)
+storage/kaynak-foto/
 public/uploads/*
 !public/uploads/.gitkeep
-public/assets/seed/raw/
 node_modules/
 .phpunit.cache/
 .env.deploy
+.phpunit.result.cache

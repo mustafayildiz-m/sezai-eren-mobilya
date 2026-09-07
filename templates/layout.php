@@ -1,14 +1,22 @@
 <?php
 use App\Models\Setting;
 use App\Models\Category;
+use App\Ankara;
 use App\Seo;
 $s = Setting::all();
-$title = isset($title) ? $title . ' | ' . $s['site_name'] : $s['site_name'] . ' | Ankara Mutfak Dolabı, Vestiyer ve Özel Mobilya';
+// $titleRaw: landing sayfaları kendi <title>'ını tam olarak belirler
+// (anahtar kelime başta olsun diye); diğer sayfalarda site adı sona eklenir.
+$title = isset($title)
+    ? (!empty($titleRaw) ? $title : $title . ' | ' . $s['site_name'])
+    : $s['site_name'] . ' | Ankara Mutfak Dolabı, Vestiyer ve Özel Mobilya';
 $description = $description ?? $s['tagline'];
 $canonical = $canonical ?? url(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
 $ogImage = $ogImage ?? url('/assets/hero.webp');
 $jsonLd = $jsonLd ?? [Seo::localBusiness($s)];
 $navCats = Category::all();
+$navServices = array_map(fn($k) => Ankara::service($k), array_keys(Ankara::services()));
+$navDistricts = array_map(fn($k) => Ankara::district($k), array_keys(Ankara::districts()));
+$robots = $robots ?? 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 $path = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
 $nav = [['/', 'Ana Sayfa'], ['/projeler', 'Projeler'], ['/hakkimizda', 'Hakkımızda'], ['/iletisim', 'İletişim']];
 $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . rawurlencode('Merhaba, mobilya projem için bilgi almak istiyorum.');
@@ -21,7 +29,10 @@ $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . r
 <title><?= e($title) ?></title>
 <meta name="description" content="<?= e($description) ?>">
 <link rel="canonical" href="<?= e($canonical) ?>">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="<?= e($robots) ?>">
+<link rel="alternate" hreflang="tr-tr" href="<?= e($canonical) ?>">
+<link rel="alternate" hreflang="x-default" href="<?= e($canonical) ?>">
+<?php if (!empty($s['gsc_verification'])): ?><meta name="google-site-verification" content="<?= e($s['gsc_verification']) ?>"><?php endif; ?>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="tr_TR">
 <meta property="og:site_name" content="<?= e($s['site_name']) ?>">
@@ -29,13 +40,18 @@ $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . r
 <meta property="og:description" content="<?= e($description) ?>">
 <meta property="og:url" content="<?= e($canonical) ?>">
 <meta property="og:image" content="<?= e($ogImage) ?>">
+<meta property="og:image:alt" content="<?= e($title) ?>">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="1067">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="<?= e($title) ?>">
 <meta name="twitter:description" content="<?= e($description) ?>">
 <meta name="twitter:image" content="<?= e($ogImage) ?>">
 <meta name="theme-color" content="#1A130E">
-<meta name="geo.region" content="TR-06"><meta name="geo.placename" content="Ankara">
+<meta name="geo.region" content="<?= Ankara::REGION_CODE ?>"><meta name="geo.placename" content="Ankara">
+<meta name="author" content="<?= e($s['site_name']) ?>">
 <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#1A130E"/><text x="32" y="43" font-family="Georgia,serif" font-size="34" text-anchor="middle" fill="#B87333">SE</text></svg>') ?>">
+<?php if ($path === '/'): ?><link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css?v=<?= filemtime(BASE_PATH . '/public/assets/app.css') ?>">
@@ -102,6 +118,22 @@ $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . r
         <li class="text-cream/60"><?= e($s['address']) ?></li>
         <li class="text-cream/60"><?= e($s['working_hours']) ?></li>
       </ul>
+    </div>
+  </div>
+  <div class="border-t border-cream/10">
+    <div class="container-x grid gap-10 py-12 md:grid-cols-2">
+      <div>
+        <h4 class="eyebrow mb-5">Ankara'da Hizmetlerimiz</h4>
+        <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-cream/60">
+          <?php foreach ($navServices as $sv): ?><li><a href="<?= e($sv['path']) ?>" class="hover:text-copper transition">Ankara <?= e($sv['name']) ?></a></li><?php endforeach; ?>
+        </ul>
+      </div>
+      <div>
+        <h4 class="eyebrow mb-5">Hizmet Verdiğimiz İlçeler</h4>
+        <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-cream/60">
+          <?php foreach ($navDistricts as $dd): ?><li><a href="<?= e($dd['path']) ?>" class="hover:text-copper transition"><?= e($dd['name']) ?> Mobilya</a></li><?php endforeach; ?>
+        </ul>
+      </div>
     </div>
   </div>
   <div class="border-t border-cream/10">

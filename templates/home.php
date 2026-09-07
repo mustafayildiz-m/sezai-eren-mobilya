@@ -40,8 +40,9 @@
       <p class="mt-4 text-walnut/70">Her mekân farklıdır. Biz de hazır ölçü kullanmıyoruz: yerinde ölçü alıp, kullanım alışkanlıklarınıza göre tasarlıyoruz.</p>
     </div>
     <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <?php foreach ($categories as $i => $c): $icons = ['🍳','🧥','🚪','📺','🛁','✨']; ?>
-        <a href="/projeler?kategori=<?= e($c['slug']) ?>" class="card group p-7 reveal reveal-delay-<?= $i % 4 ?>">
+      <?php foreach ($categories as $i => $c): $icons = ['🍳','🧥','🚪','📺','🛁','✨'];
+            $lp = \App\Ankara::service((string) $c['slug']); ?>
+        <a href="<?= $lp ? e($lp['path']) : '/projeler?kategori=' . e($c['slug']) ?>" class="card group p-7 reveal reveal-delay-<?= $i % 4 ?>">
           <div class="flex items-start justify-between">
             <span class="grid h-12 w-12 place-items-center rounded-full bg-copper/10 text-xl transition group-hover:bg-copper group-hover:scale-110"><?= $icons[$i % 6] ?></span>
             <span class="text-xs text-walnut/40"><?= (int) $c['project_count'] ?> proje</span>
@@ -78,7 +79,7 @@
   <div class="container-x grid items-center gap-16 lg:grid-cols-2">
     <div class="relative reveal">
       <div class="img-zoom overflow-hidden rounded-[2rem]">
-        <img src="/assets/about.webp" alt="Sezai Eren Mobilya atölye işçiliği" width="1600" height="1088" loading="lazy" class="aspect-[4/5] w-full object-cover">
+        <img src="/assets/about.webp" alt="Sezai Eren atölyede üretim başında" width="1242" height="1378" loading="lazy" class="aspect-[4/5] w-full object-cover">
       </div>
       <div class="absolute -bottom-8 -right-4 rounded-2xl bg-copper p-6 text-cream shadow-2xl md:-right-10">
         <div class="font-serif text-5xl leading-none"><span data-count="<?= (int) $s['years'] ?>" data-suffix="+">0</span></div>
@@ -132,5 +133,30 @@
     </div>
   </div>
 </section>
+
+<!-- ANKARA: HİZMET BÖLGESİ -->
+<section class="py-24">
+  <div class="container-x">
+    <div class="mb-12 max-w-2xl reveal">
+      <span class="eyebrow">Hizmet Bölgemiz</span>
+      <h2 class="h-display mt-4 text-4xl md:text-5xl text-balance">Ankara'nın her ilçesine keşfe geliyoruz</h2>
+      <p class="mt-4 text-walnut/70">Atölyemiz Siteler'de. Ankara genelinde ücretsiz keşif yapıyor, mesafe için ek nakliye ücreti almıyoruz. En yoğun çalıştığımız ilçeler:</p>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <?php foreach ($districts as $i => $d): ?>
+        <a href="<?= e($d['path']) ?>" class="card group flex items-center justify-between p-5 reveal reveal-delay-<?= $i % 4 ?>">
+          <span class="font-serif text-xl group-hover:text-copper transition"><?= e($d['name']) ?></span>
+          <span class="text-copper transition group-hover:translate-x-1">→</span>
+        </a>
+      <?php endforeach; ?>
+    </div>
+    <p class="mt-8 text-sm text-walnut/60">
+      Hizmetlerimiz:
+      <?php foreach ($services as $i => $sv): ?><a href="<?= e($sv['path']) ?>" class="text-copper hover:underline">Ankara <?= e($sv['name']) ?></a><?= $i < count($services) - 1 ? ' · ' : '' ?><?php endforeach; ?>
+    </p>
+  </div>
+</section>
+
+<?= \App\View::partial('_faq', ['faq' => $faq, 'faqTitle' => 'Ankara\'da ölçüye özel mobilya hakkında']) ?>
 
 <?= \App\View::partial('_cta') ?>

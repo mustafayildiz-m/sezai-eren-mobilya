@@ -8,7 +8,7 @@ final class SeoTest extends TestCase
     public function testLocalBusiness(): void
     {
         $ld = Seo::localBusiness(['site_name' => 'Sezai Eren Mobilya', 'phone' => '+90 555', 'address' => 'Siteler, Altındağ / Ankara', 'instagram' => 'https://instagram.com/x']);
-        $this->assertSame('LocalBusiness', $ld['@type']);
+        $this->assertContains('FurnitureStore', (array) $ld['@type']);
         $this->assertSame('Ankara', $ld['address']['addressLocality']);
         $this->assertSame('TR', $ld['address']['addressCountry']);
         $this->assertContains('https://instagram.com/x', $ld['sameAs']);

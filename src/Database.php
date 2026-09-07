@@ -74,6 +74,10 @@ final class Database
             'map_embed' => 'https://www.google.com/maps?q=Siteler,+Alt%C4%B1nda%C4%9F,+Ankara&output=embed',
             'about' => 'Yirmi yılı aşkın tecrübemizle Ankara\'da mutfak dolabı, vestiyer, gardırop ve özel tasarım mobilya üretiyoruz. Her projeyi ölçüye, zevke ve bütçeye göre sıfırdan tasarlıyor; birinci sınıf malzeme ve titiz işçilikle teslim ediyoruz.',
             'years' => '20', 'projects_done' => '850', 'happy_clients' => '600',
+            // SEO alanları — boş bırakılırsa ilgili etiket/schema alanı hiç basılmaz.
+            'gsc_verification' => '',   // Google Search Console doğrulama kodu
+            'map_url' => '',            // Google Business Profile / Maps linki (schema hasMap)
+            'latitude' => '', 'longitude' => '',
         ];
         $ins = $db->prepare('INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)');
         foreach ($defaults as $k => $v) $ins->execute([$k, $v]);

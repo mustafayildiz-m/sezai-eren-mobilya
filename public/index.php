@@ -12,6 +12,7 @@ use App\Controllers\Admin\ProjectAdminController;
 use App\Controllers\Admin\QuoteAdminController;
 use App\Controllers\Admin\SettingAdminController;
 use App\Controllers\HomeController;
+use App\Controllers\LandingController;
 use App\Controllers\PageController;
 use App\Controllers\ProjectController;
 use App\Controllers\QuoteController;
@@ -39,6 +40,10 @@ $r->get('/iletisim', [PageController::class, 'contact']);
 $r->get('/teklif-al', [QuoteController::class, 'form']);
 $r->post('/teklif-al', [QuoteController::class, 'submit']);
 $r->get('/teklif-al/tesekkurler', [QuoteController::class, 'done']);
+// Ankara yerel arama sayfaları (hizmet + ilçe). Proje detayından önce
+// tanımlanmaları gerekmez; desenler çakışmıyor.
+$r->get('/ankara-{slug}', [LandingController::class, 'service']);
+$r->get('/ankara/{slug}-mobilya', [LandingController::class, 'district']);
 $r->get('/sitemap.xml', [SitemapController::class, 'sitemap']);
 $r->get('/robots.txt', [SitemapController::class, 'robots']);
 
@@ -72,5 +77,5 @@ try {
     if (is_string($out)) echo $out;
 } catch (NotFound) {
     http_response_code(404);
-    echo View::render('404', ['title' => 'Sayfa Bulunamadı']);
+    echo View::render('404', ['title' => 'Sayfa Bulunamadı', 'robots' => 'noindex, follow']);
 }

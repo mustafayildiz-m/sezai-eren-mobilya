@@ -28,3 +28,15 @@
     </div>
   </div>
 </section>
+<section class="border-t border-walnut/10 py-16">
+  <div class="container-x">
+    <span class="eyebrow">Hizmet Bölgemiz</span>
+    <h2 class="h-display mt-4 text-3xl md:text-4xl">Ankara'nın tamamına keşfe geliyoruz</h2>
+    <p class="mt-4 max-w-2xl text-walnut/70">Atölyemiz Siteler'de (Altındağ). Ankara içinde keşif, ölçü ve teklif ücretsizdir; mesafe için ek nakliye ücreti almıyoruz. En yoğun çalıştığımız ilçeler:</p>
+    <ul class="mt-6 flex flex-wrap gap-2">
+      <?php foreach ($districts as $d): ?>
+        <li><a href="<?= e($d['path']) ?>" class="filter-pill"><?= e($d['name']) ?> Mobilya</a></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</section>

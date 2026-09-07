@@ -10,9 +10,12 @@ SEO odaklı vitrin sitesi + resim yükleme ve teklif takibi yapılabilen yöneti
 ```bash
 cp .env.example .env            # ADMIN_PASSWORD'ü değiştirin
 docker compose up -d --build
-./scripts/download_images.sh    # örnek görseller (Unsplash, ticari kullanıma serbest)
-docker compose exec -u www-data app php scripts/seed.php
+docker compose exec -u www-data app php scripts/import_sezai.php
 ```
+
+Sitede stok/örnek görsel kullanılmaz — tüm içerik Sezai usta'nın gerçek
+işleridir. `import_sezai.php`, `storage/kaynak-foto/` altındaki orijinal
+fotoğrafları WebP'ye çevirip projelere bağlar ve mevcut projeleri sıfırlar.
 
 - Site: http://localhost:8080
 - Yönetim: http://localhost:8080/yonetim (kullanıcı/şifre `.env` içinde)
@@ -51,5 +54,5 @@ npx tailwindcss -i src/input.css -o public/assets/app.css --minify
 - `public/` web kökü (index.php, .htaccess, assets, uploads)
 - `src/` Router, Database, Image, Auth, Csrf, RateLimit, Seo, View, Models, Controllers
 - `templates/` PHP şablonları (`admin/` panel)
-- `scripts/` seed ve görsel indirme
+- `scripts/` içeri aktarma (`import_sezai.php`) ve FTP deploy
 - `tests/` PHPUnit

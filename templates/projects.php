@@ -2,7 +2,7 @@
   <div class="container-x">
     <nav class="text-xs text-cream/50" aria-label="breadcrumb"><a href="/" class="hover:text-copper">Ana Sayfa</a> / <span class="text-cream/80">Projeler</span></nav>
     <span class="eyebrow mt-6">Portföy</span>
-    <h1 class="h-display mt-4 text-5xl md:text-6xl"><?= $active ? e($active['name']) : 'Tüm Projeler' ?></h1>
+    <h1 class="h-display mt-4 text-5xl md:text-6xl"><?= $active ? 'Ankara ' . e($active['name']) . ' Projeleri' : 'Tüm Projeler' ?></h1>
     <p class="mt-4 max-w-2xl text-cream/70"><?= $active && $active['description'] ? e($active['description']) : 'Ankara\'da tamamladığımız mutfak dolabı, vestiyer, gardırop ve özel tasarım mobilya projelerimizden seçkiler.' ?></p>
   </div>
 </section>
@@ -20,6 +20,12 @@
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <?php foreach ($projects as $i => $p) echo \App\View::partial('_project_card', ['p' => $p, 'delay' => $i]); ?>
       </div>
+    <?php endif; ?>
+    <?php if (!empty($landing)): ?>
+      <p class="mt-10 text-sm text-walnut/60">
+        Ankara'da <?= e(mb_strtolower($active['name'])) ?> üretim sürecimiz, malzeme seçenekleri ve fiyatlandırma hakkında ayrıntılı bilgi:
+        <a href="<?= e($landing['path']) ?>" class="font-medium text-copper hover:underline">Ankara <?= e($landing['name']) ?></a>
+      </p>
     <?php endif; ?>
   </div>
 </section>

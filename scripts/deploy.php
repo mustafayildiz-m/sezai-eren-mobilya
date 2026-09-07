@@ -46,9 +46,8 @@ $mkd("$appDir/storage");
 $mkd("$appDir/storage/ratelimit");
 
 echo "== web: $webDir ==\n";
-// assets/seed sadece seed kaynağıdır, canlıda gereksiz (7 MB).
 // uploads/ canlıda panelden yüklenir; sadece --with-data ile gönderilir.
-$sync("$proj/public", $webDir, $withData ? ['seed'] : ['seed', 'uploads']);
+$sync("$proj/public", $webDir, $withData ? [] : ['uploads']);
 
 if ($withData) {
     echo "== veri (DİKKAT: canlı veritabanının üzerine yazar) ==\n";
