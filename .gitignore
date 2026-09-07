@@ -6,3 +6,4 @@ public/uploads/*
 public/assets/seed/raw/
 node_modules/
 .phpunit.cache/
+.env.deploy

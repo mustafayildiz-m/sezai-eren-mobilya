@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 
-require dirname(__DIR__) . '/src/bootstrap.php';
+// Web kökü uygulamanın içindeyse (public/) veya kardeşiyse (paylaşımlı hosting: public_html + app/)
+$__b = dirname(__DIR__) . '/src/bootstrap.php';
+require is_file($__b) ? $__b : dirname(__DIR__) . '/app/src/bootstrap.php';
 
 use App\Controllers\Admin\AuthController;
 use App\Controllers\Admin\CategoryAdminController;
