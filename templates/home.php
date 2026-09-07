@@ -2,7 +2,7 @@
 <!-- HERO -->
 <section class="relative isolate min-h-[100svh] overflow-hidden bg-ground text-cream">
   <div class="absolute inset-0 -z-10">
-    <img data-hero-img src="/assets/seed/hero.webp" alt="Ankara özel tasarım mutfak dolabı" width="1600" height="1067" fetchpriority="high" class="h-full w-full object-cover animate-kenburns opacity-70" style="transform: translate(var(--mx,0), var(--my,0))">
+    <img data-hero-img src="/assets/hero.webp" alt="Ankara özel tasarım mutfak dolabı" width="1600" height="1067" fetchpriority="high" class="h-full w-full object-cover animate-kenburns opacity-70" style="transform: translate(var(--mx,0), var(--my,0))">
     <div class="absolute inset-0 bg-gradient-to-b from-ground/60 via-ground/40 to-ground"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-ground/80 via-transparent to-transparent"></div>
   </div>
@@ -78,7 +78,7 @@
   <div class="container-x grid items-center gap-16 lg:grid-cols-2">
     <div class="relative reveal">
       <div class="img-zoom overflow-hidden rounded-[2rem]">
-        <img src="/assets/seed/about.webp" alt="Sezai Eren Mobilya atölye işçiliği" width="1600" height="1088" loading="lazy" class="aspect-[4/5] w-full object-cover">
+        <img src="/assets/about.webp" alt="Sezai Eren Mobilya atölye işçiliği" width="1600" height="1088" loading="lazy" class="aspect-[4/5] w-full object-cover">
       </div>
       <div class="absolute -bottom-8 -right-4 rounded-2xl bg-copper p-6 text-cream shadow-2xl md:-right-10">
         <div class="font-serif text-5xl leading-none"><span data-count="<?= (int) $s['years'] ?>" data-suffix="+">0</span></div>

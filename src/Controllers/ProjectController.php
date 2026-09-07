@@ -44,7 +44,7 @@ final class ProjectController
         return View::render('project', [
             'title' => $project['title'] . ($project['location'] ? ' – ' . $project['location'] : '') . ', Ankara',
             'description' => $desc,
-            'ogImage' => $urls[0] ?? url('/assets/seed/hero.webp'),
+            'ogImage' => $urls[0] ?? url('/assets/hero.webp'),
             'project' => $project,
             'images' => $images,
             'related' => $project['category_id'] ? Project::related((int) $project['category_id'], (int) $project['id']) : [],

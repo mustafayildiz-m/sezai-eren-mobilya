@@ -22,7 +22,7 @@ final class Seo
             'url' => url('/'),
             'telephone' => $s['phone'] ?? '',
             'email' => $s['email'] ?? '',
-            'image' => url('/assets/seed/hero.webp'),
+            'image' => url('/assets/hero.webp'),
             'priceRange' => '₺₺',
             'address' => [
                 '@type' => 'PostalAddress',
