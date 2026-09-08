@@ -20,6 +20,30 @@ final class HomeController
         ['Montajı kim yapıyor, garanti var mı?', 'Montajı kendi ekibimiz yapar, taşeron kullanmıyoruz. Teslim tarihinden itibaren işçilik ve mekanizma garantisi veriyoruz; kapak ayarı gibi montaj sonrası talepler ücretsizdir.'],
     ];
 
+    /**
+     * Öne çıkan projelerden kategori çeşitliliği olan bir seçki.
+     * Aynı kategoriden arka arkaya üç iş göstermek portföyü dar gösteriyor.
+     */
+    private static function diverseFeatured(int $limit): array
+    {
+        $all = Project::featured(24);
+        $picked = [];
+        $seen = [];
+        foreach ($all as $p) {
+            $cat = $p['category_id'] ?? 0;
+            if (isset($seen[$cat])) continue;
+            $seen[$cat] = true;
+            $picked[] = $p;
+            if (count($picked) === $limit) return $picked;
+        }
+        // Yeterli kategori yoksa kalanlarla tamamla
+        foreach ($all as $p) {
+            if (count($picked) === $limit) break;
+            if (!in_array($p, $picked, true)) $picked[] = $p;
+        }
+        return $picked;
+    }
+
     public static function index(array $p = []): string
     {
         $s = Setting::all();
@@ -27,7 +51,7 @@ final class HomeController
             // Fotoğrafı henüz olmayan kategoriyi ana sayfada "0 proje" diye
             // göstermek yerine gizliyoruz; hizmet sayfaları yerinde duruyor.
             'categories' => array_values(array_filter(Category::all(), fn($c) => (int) $c['project_count'] > 0)),
-            'featured' => Project::featured(6),
+            'featured' => self::diverseFeatured(3),
             'services' => array_map(fn($k) => Ankara::service($k), array_keys(Ankara::services())),
             'districts' => array_map(fn($k) => Ankara::district($k), array_keys(Ankara::districts())),
             'faq' => self::FAQ,

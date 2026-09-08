@@ -62,12 +62,4 @@
     lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1); });
   }
 
-  // Parallax-ish hero tilt on mouse (subtle)
-  const hero = document.querySelector('[data-hero-img]');
-  if (hero && !reduced && window.matchMedia('(pointer:fine)').matches) {
-    document.addEventListener('mousemove', e => {
-      const x = (e.clientX / window.innerWidth - .5) * 10, y = (e.clientY / window.innerHeight - .5) * 10;
-      hero.style.setProperty('--mx', x + 'px'); hero.style.setProperty('--my', y + 'px');
-    });
-  }
 })();

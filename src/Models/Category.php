@@ -7,9 +7,23 @@ use App\Slug;
 
 final class Category
 {
+    /**
+     * Kategoriler + proje sayısı + kapak görseli.
+     * Kapak, kategorinin ilk sıradaki projesinin kapak resmidir; ana sayfadaki
+     * hizmet kartlarında kullanılır.
+     */
     public static function all(): array
     {
-        return Database::pdo()->query('SELECT c.*, (SELECT COUNT(*) FROM projects p WHERE p.category_id=c.id) AS project_count FROM categories c ORDER BY sort_order, name')->fetchAll();
+        return Database::pdo()->query(
+            'SELECT c.*,
+                (SELECT COUNT(*) FROM projects p WHERE p.category_id = c.id) AS project_count,
+                (SELECT COALESCE(ci.thumb, (SELECT thumb FROM images WHERE project_id = p.id ORDER BY sort_order, id LIMIT 1))
+                   FROM projects p LEFT JOIN images ci ON ci.id = p.cover_image_id
+                  WHERE p.category_id = c.id
+                  ORDER BY p.is_featured DESC, p.sort_order, p.id LIMIT 1) AS cover_thumb
+             FROM categories c
+             ORDER BY c.sort_order, c.name'
+        )->fetchAll();
     }
 
     public static function find(int $id): ?array

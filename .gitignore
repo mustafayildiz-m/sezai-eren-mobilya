@@ -12,3 +12,4 @@ node_modules/
 .phpunit.cache/
 .env.deploy
 .phpunit.result.cache
+.superpowers/

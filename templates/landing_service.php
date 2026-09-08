@@ -1,42 +1,39 @@
-<section class="bg-ground pb-16 pt-36 text-cream md:pt-44">
+<section class="border-b border-line pb-14 pt-32 md:pb-20 md:pt-40">
   <div class="container-x">
-    <nav class="text-xs text-cream/50" aria-label="breadcrumb"><a href="/" class="hover:text-copper">Ana Sayfa</a> / <span class="text-cream/80">Ankara <?= e($sv['name']) ?></span></nav>
+    <nav class="text-xs text-ink-dim" aria-label="Sayfa yolu"><a href="/" class="transition hover:text-gold">Ana Sayfa</a> <span class="px-1">/</span> <span class="text-ink">Ankara <?= e($sv['name']) ?></span></nav>
     <span class="eyebrow mt-6">Ankara</span>
-    <h1 class="h-display mt-4 max-w-4xl text-5xl md:text-6xl text-balance"><?= e($sv['h1']) ?></h1>
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-cream/70"><?= e($sv['lead']) ?></p>
+    <h1 class="h1 mt-4 max-w-[20ch] text-balance"><?= e($sv['h1']) ?></h1>
+    <p class="lead mt-6 max-w-2xl text-base sm:text-lg"><?= e($sv['lead']) ?></p>
     <div class="mt-8 flex flex-wrap gap-3">
       <a href="/teklif-al" class="btn-primary">Ücretsiz Keşif ve Teklif</a>
-      <?php if ($cat): ?><a href="/projeler?kategori=<?= e($cat['slug']) ?>" class="btn-outline-light"><?= e($sv['name']) ?> Projeleri</a><?php endif; ?>
+      <?php if ($cat): ?><a href="/projeler?kategori=<?= e($cat['slug']) ?>" class="btn-ghost"><?= e($sv['name']) ?> Projeleri</a><?php endif; ?>
     </div>
   </div>
 </section>
 
-<section class="py-20">
-  <div class="container-x grid gap-12 lg:grid-cols-3">
-    <div class="lg:col-span-2 space-y-10">
+<section class="py-14 md:py-20">
+  <div class="container-x grid gap-10 lg:grid-cols-3 lg:gap-14">
+    <div class="space-y-9 lg:col-span-2">
       <?php foreach ($sv['sections'] as [$h, $b]): ?>
         <div class="reveal">
-          <h2 class="font-serif text-2xl md:text-3xl"><?= e($h) ?></h2>
-          <p class="mt-3 leading-relaxed text-walnut/75"><?= e($b) ?></p>
+          <h2 class="h3"><?= e($h) ?></h2>
+          <p class="mt-3 leading-relaxed text-ink-dim"><?= e($b) ?></p>
         </div>
       <?php endforeach; ?>
     </div>
-    <aside class="space-y-6">
-      <div class="card p-6">
-        <h2 class="font-serif text-xl">Hizmet verdiğimiz ilçeler</h2>
-        <p class="mt-2 text-sm text-walnut/60">Ankara genelinde çalışıyoruz; en yoğun olduğumuz ilçeler:</p>
+
+    <aside class="space-y-4">
+      <div class="panel p-6">
+        <h2 class="h3">Hizmet verdiğimiz ilçeler</h2>
+        <p class="mt-2 text-sm text-ink-dim">Ankara genelinde çalışıyoruz; en yoğun olduğumuz ilçeler:</p>
         <ul class="mt-4 flex flex-wrap gap-2">
-          <?php foreach ($districts as $d): ?>
-            <li><a href="<?= e($d['path']) ?>" class="filter-pill"><?= e($d['name']) ?></a></li>
-          <?php endforeach; ?>
+          <?php foreach ($districts as $d): ?><li><a href="<?= e($d['path']) ?>" class="pill"><?= e($d['name']) ?></a></li><?php endforeach; ?>
         </ul>
       </div>
-      <div class="card p-6">
-        <h2 class="font-serif text-xl">Diğer hizmetlerimiz</h2>
-        <ul class="mt-4 space-y-2 text-sm">
-          <?php foreach ($others as $o): ?>
-            <li><a href="<?= e($o['path']) ?>" class="text-walnut/80 hover:text-copper transition">Ankara <?= e($o['name']) ?></a></li>
-          <?php endforeach; ?>
+      <div class="panel p-6">
+        <h2 class="h3">Diğer hizmetlerimiz</h2>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <?php foreach ($others as $o): ?><li><a href="<?= e($o['path']) ?>" class="text-ink-dim transition hover:text-gold">Ankara <?= e($o['name']) ?></a></li><?php endforeach; ?>
         </ul>
       </div>
     </aside>
@@ -44,14 +41,14 @@
 </section>
 
 <?php if ($projects): ?>
-<section class="bg-beige/40 py-20">
+<section class="border-y border-line bg-surface py-14 md:py-20">
   <div class="container-x">
     <span class="eyebrow">Portföy</span>
-    <h2 class="h-display mt-4 text-4xl md:text-5xl">Ankara'da tamamladığımız <?= e(mb_strtolower($sv['name'])) ?> işleri</h2>
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <h2 class="h2 mt-4 text-balance">Ankara'da tamamladığımız <?= e(mb_strtolower($sv['name'])) ?> işleri</h2>
+    <div class="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <?php foreach ($projects as $i => $p) echo \App\View::partial('_project_card', ['p' => $p, 'delay' => $i]); ?>
     </div>
-    <?php if ($cat): ?><a href="/projeler?kategori=<?= e($cat['slug']) ?>" class="btn-outline mt-10 inline-block">Tümünü gör</a><?php endif; ?>
+    <?php if ($cat): ?><a href="/projeler?kategori=<?= e($cat['slug']) ?>" class="btn-ghost mt-9">Tümünü gör</a><?php endif; ?>
   </div>
 </section>
 <?php endif; ?>

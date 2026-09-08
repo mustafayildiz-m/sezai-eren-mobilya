@@ -1,32 +1,43 @@
-<section class="bg-ground pb-16 pt-36 text-cream md:pt-44">
+<section class="border-b border-line pb-12 pt-32 md:pb-16 md:pt-40">
   <div class="container-x">
-    <nav class="text-xs text-cream/50" aria-label="breadcrumb"><a href="/" class="hover:text-copper">Ana Sayfa</a> / <span class="text-cream/80">Projeler</span></nav>
+    <nav class="text-xs text-ink-dim" aria-label="Sayfa yolu">
+      <a href="/" class="transition hover:text-gold">Ana Sayfa</a> <span class="px-1">/</span>
+      <?php if ($active): ?><a href="/projeler" class="transition hover:text-gold">Projeler</a> <span class="px-1">/</span> <span class="text-ink"><?= e($active['name']) ?></span>
+      <?php else: ?><span class="text-ink">Projeler</span><?php endif; ?>
+    </nav>
     <span class="eyebrow mt-6">Portföy</span>
-    <h1 class="h-display mt-4 text-5xl md:text-6xl"><?= $active ? 'Ankara ' . e($active['name']) . ' Projeleri' : 'Tüm Projeler' ?></h1>
-    <p class="mt-4 max-w-2xl text-cream/70"><?= $active && $active['description'] ? e($active['description']) : 'Ankara\'da tamamladığımız mutfak dolabı, vestiyer, gardırop ve özel tasarım mobilya projelerimizden seçkiler.' ?></p>
+    <h1 class="h1 mt-4 text-balance"><?= $active ? e($title) : 'Tüm Projeler' ?></h1>
+    <p class="lead mt-4 max-w-2xl"><?= $active && $active['description'] ? e($active['description']) : 'Ankara\'da tamamladığımız mutfak dolabı, gardırop, iç kapı ve özel tasarım mobilya projelerimizden seçkiler.' ?></p>
   </div>
 </section>
-<section class="py-14">
+
+<section class="py-10 md:py-14">
   <div class="container-x">
-    <div class="mb-10 flex flex-wrap gap-2">
-      <a href="/projeler" class="filter-pill <?= !$active ? 'active' : '' ?>">Tümü</a>
-      <?php foreach ($categories as $c): ?>
-        <a href="/projeler?kategori=<?= e($c['slug']) ?>" class="filter-pill <?= $active && $active['id'] === $c['id'] ? 'active' : '' ?>"><?= e($c['name']) ?> <span class="opacity-50">(<?= (int) $c['project_count'] ?>)</span></a>
+    <!-- Telefonda yatay kaydırmalı şerit -->
+    <div class="scroll-x -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
+      <a href="/projeler" class="pill <?= !$active ? 'pill-active' : '' ?>">Tümü</a>
+      <?php foreach ($categories as $c): if (!(int) $c['project_count']) continue; ?>
+        <a href="/projeler?kategori=<?= e($c['slug']) ?>" class="pill <?= $active && $active['id'] === $c['id'] ? 'pill-active' : '' ?>">
+          <?= e($c['name']) ?> <span class="ml-1.5 opacity-60"><?= (int) $c['project_count'] ?></span>
+        </a>
       <?php endforeach; ?>
     </div>
+
     <?php if (!$projects): ?>
-      <p class="rounded-2xl bg-beige/60 p-10 text-center text-walnut/60">Bu kategoride henüz proje eklenmemiş.</p>
+      <p class="mt-10 rounded-xl bg-surface p-10 text-center text-ink-dim">Bu kategoride henüz proje eklenmemiş.</p>
     <?php else: ?>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <?php foreach ($projects as $i => $p) echo \App\View::partial('_project_card', ['p' => $p, 'delay' => $i]); ?>
       </div>
     <?php endif; ?>
+
     <?php if (!empty($landing)): ?>
-      <p class="mt-10 text-sm text-walnut/60">
+      <p class="mt-10 text-sm leading-relaxed text-ink-dim">
         Ankara'da <?= e(mb_strtolower($active['name'])) ?> üretim sürecimiz, malzeme seçenekleri ve fiyatlandırma hakkında ayrıntılı bilgi:
-        <a href="<?= e($landing['path']) ?>" class="font-medium text-copper hover:underline">Ankara <?= e($landing['name']) ?></a>
+        <a href="<?= e($landing['path']) ?>" class="font-medium text-gold transition hover:underline">Ankara <?= e($landing['name']) ?></a>
       </p>
     <?php endif; ?>
   </div>
 </section>
+
 <?= \App\View::partial('_cta') ?>

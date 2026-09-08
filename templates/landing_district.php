@@ -1,46 +1,46 @@
-<section class="bg-ground pb-16 pt-36 text-cream md:pt-44">
+<section class="border-b border-line pb-14 pt-32 md:pb-20 md:pt-40">
   <div class="container-x">
-    <nav class="text-xs text-cream/50" aria-label="breadcrumb"><a href="/" class="hover:text-copper">Ana Sayfa</a> / <span class="text-cream/80"><?= e($d['name']) ?> Mobilya</span></nav>
+    <nav class="text-xs text-ink-dim" aria-label="Sayfa yolu"><a href="/" class="transition hover:text-gold">Ana Sayfa</a> <span class="px-1">/</span> <span class="text-ink"><?= e($d['name']) ?> Mobilya</span></nav>
     <span class="eyebrow mt-6"><?= e($d['name']) ?> · Ankara</span>
-    <h1 class="h-display mt-4 max-w-4xl text-5xl md:text-6xl text-balance"><?= e($d['name']) ?>'da Ölçüye Özel Mobilya</h1>
-    <p class="mt-6 max-w-2xl text-lg leading-relaxed text-cream/70"><?= e($d['lead']) ?></p>
+    <h1 class="h1 mt-4 max-w-[20ch] text-balance"><?= e($d['name']) ?>'da Ölçüye Özel Mobilya</h1>
+    <p class="lead mt-6 max-w-2xl text-base sm:text-lg"><?= e($d['lead']) ?></p>
     <div class="mt-8 flex flex-wrap gap-3">
       <a href="/teklif-al" class="btn-primary"><?= e($d['name']) ?> İçin Ücretsiz Keşif</a>
-      <a href="/iletisim" class="btn-outline-light">Bize Ulaşın</a>
+      <a href="/iletisim" class="btn-ghost">Bize Ulaşın</a>
     </div>
   </div>
 </section>
 
-<section class="py-20">
-  <div class="container-x grid gap-12 lg:grid-cols-3">
-    <div class="space-y-6 lg:col-span-2">
-      <h2 class="font-serif text-2xl md:text-3xl"><?= e($d['name']) ?>'da nasıl çalışıyoruz?</h2>
+<section class="py-14 md:py-20">
+  <div class="container-x grid gap-10 lg:grid-cols-3 lg:gap-14">
+    <div class="space-y-5 lg:col-span-2">
+      <h2 class="h3"><?= e($d['name']) ?>'da nasıl çalışıyoruz?</h2>
       <?php foreach ($d['body'] as $para): ?>
-        <p class="leading-relaxed text-walnut/75 reveal"><?= e($para) ?></p>
+        <p class="leading-relaxed text-ink-dim reveal"><?= e($para) ?></p>
       <?php endforeach; ?>
     </div>
-    <aside class="card h-fit p-6">
-      <h2 class="font-serif text-xl">Keşfe gittiğimiz mahalleler</h2>
-      <p class="mt-2 text-sm text-walnut/60"><?= e($d['name']) ?> genelinde çalışıyoruz. En sık iş yaptığımız mahalleler:</p>
+    <aside class="panel h-fit p-6">
+      <h2 class="h3">Keşfe gittiğimiz mahalleler</h2>
+      <p class="mt-2 text-sm text-ink-dim"><?= e($d['name']) ?> genelinde çalışıyoruz. En sık iş yaptığımız mahalleler:</p>
       <ul class="mt-4 flex flex-wrap gap-2 text-xs">
         <?php foreach ($d['neighborhoods'] as $n): ?>
-          <li class="rounded-full border border-walnut/15 px-3 py-1 text-walnut/70"><?= e($n) ?></li>
+          <li class="rounded-full border border-line px-3 py-1.5 text-ink-dim"><?= e($n) ?></li>
         <?php endforeach; ?>
       </ul>
     </aside>
   </div>
 </section>
 
-<section class="bg-beige/40 py-20">
+<section class="border-y border-line bg-surface py-14 md:py-20">
   <div class="container-x">
     <span class="eyebrow">Hizmetler</span>
-    <h2 class="h-display mt-4 text-4xl md:text-5xl"><?= e($d['name']) ?>'da hangi işleri yapıyoruz?</h2>
-    <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <?php foreach ($services as $sv): ?>
-        <a href="<?= e($sv['path']) ?>" class="card group block p-6 transition hover:-translate-y-1">
-          <h3 class="font-serif text-xl group-hover:text-copper transition"><?= e($sv['name']) ?></h3>
-          <p class="mt-2 text-sm leading-relaxed text-walnut/65"><?= e(mb_substr($sv['lead'], 0, 120)) ?>…</p>
-          <span class="mt-4 inline-block text-xs uppercase tracking-widest2 text-copper">Detay →</span>
+    <h2 class="h2 mt-4 text-balance"><?= e($d['name']) ?>'da hangi işleri yapıyoruz?</h2>
+    <div class="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <?php foreach ($services as $i => $sv): ?>
+        <a href="<?= e($sv['path']) ?>" class="card group block p-6 reveal reveal-delay-<?= $i % 4 ?>">
+          <h3 class="h3 transition group-hover:text-gold"><?= e($sv['name']) ?></h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink-dim"><?= e(mb_substr($sv['lead'], 0, 120)) ?>…</p>
+          <span class="mt-4 inline-block text-[11px] uppercase tracking-widest2 text-gold">Detay →</span>
         </a>
       <?php endforeach; ?>
     </div>
@@ -48,11 +48,11 @@
 </section>
 
 <?php if ($local): ?>
-<section class="py-20">
+<section class="py-14 md:py-20">
   <div class="container-x">
     <span class="eyebrow">Referans</span>
-    <h2 class="h-display mt-4 text-4xl md:text-5xl"><?= e($d['name']) ?>'da tamamladığımız işler</h2>
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <h2 class="h2 mt-4 text-balance"><?= e($d['name']) ?>'da tamamladığımız işler</h2>
+    <div class="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <?php foreach ($local as $i => $p) echo \App\View::partial('_project_card', ['p' => $p, 'delay' => $i]); ?>
     </div>
   </div>
@@ -61,13 +61,11 @@
 
 <?= \App\View::partial('_faq', ['faq' => $faq, 'faqTitle' => $d['name'] . ' mobilya hakkında sık sorulanlar']) ?>
 
-<section class="border-t border-walnut/10 py-12">
+<section class="border-t border-line py-10">
   <div class="container-x">
-    <h2 class="text-sm font-medium uppercase tracking-widest2 text-walnut/50">Ankara'da hizmet verdiğimiz diğer ilçeler</h2>
+    <h2 class="text-[11px] font-medium uppercase tracking-widest2 text-ink-dim">Ankara'da hizmet verdiğimiz diğer ilçeler</h2>
     <ul class="mt-5 flex flex-wrap gap-2">
-      <?php foreach ($others as $o): ?>
-        <li><a href="<?= e($o['path']) ?>" class="filter-pill"><?= e($o['name']) ?> Mobilya</a></li>
-      <?php endforeach; ?>
+      <?php foreach ($others as $o): ?><li><a href="<?= e($o['path']) ?>" class="pill"><?= e($o['name']) ?> Mobilya</a></li><?php endforeach; ?>
     </ul>
   </div>
 </section>

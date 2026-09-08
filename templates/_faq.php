@@ -1,15 +1,15 @@
-<section class="py-20">
+<section class="border-t border-line py-16 md:py-24">
   <div class="container-x max-w-3xl">
     <span class="eyebrow">Sık Sorulanlar</span>
-    <h2 class="h-display mt-4 text-4xl md:text-5xl"><?= e($faqTitle ?? 'Merak edilenler') ?></h2>
-    <div class="mt-10 divide-y divide-walnut/10 border-y border-walnut/10">
+    <h2 class="h2 mt-4 text-balance"><?= e($faqTitle ?? 'Merak edilenler') ?></h2>
+    <div class="mt-9 divide-y divide-line border-y border-line">
       <?php foreach ($faq as [$q, $a]): ?>
-        <details class="group py-5">
-          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 font-medium text-walnut marker:hidden">
-            <span><?= e($q) ?></span>
-            <span class="shrink-0 text-copper transition group-open:rotate-45">+</span>
+        <details class="group">
+          <summary class="flex min-h-[56px] cursor-pointer list-none items-center justify-between gap-6 py-4 font-medium marker:hidden [&::-webkit-details-marker]:hidden">
+            <span class="text-[15px] leading-snug"><?= e($q) ?></span>
+            <span class="shrink-0 text-xl leading-none text-gold transition-transform duration-300 group-open:rotate-45" aria-hidden="true">+</span>
           </summary>
-          <p class="mt-3 pr-10 text-sm leading-relaxed text-walnut/70"><?= e($a) ?></p>
+          <p class="pb-5 pr-8 text-sm leading-relaxed text-ink-dim"><?= e($a) ?></p>
         </details>
       <?php endforeach; ?>
     </div>

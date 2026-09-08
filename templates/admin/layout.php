@@ -9,7 +9,7 @@ $menu = [['/yonetim', 'Özet', '▦'], ['/yonetim/projeler', 'Projeler', '▣'],
 <link rel="stylesheet" href="/assets/app.css?v=<?= filemtime(BASE_PATH . '/public/assets/app.css') ?>">
 <meta name="csrf-token" content="<?= e(\App\Csrf::token()) ?>">
 </head>
-<body class="min-h-screen bg-[#F3EEE6] text-walnut [animation:none]">
+<body class="admin min-h-screen bg-[#F3EEE6] text-walnut [animation:none]">
 <div class="flex min-h-screen">
   <aside class="hidden w-64 shrink-0 flex-col bg-ground text-cream/80 md:flex">
     <a href="/yonetim" class="flex items-center gap-3 px-6 py-6"><span class="grid h-10 w-10 place-items-center rounded-full border border-copper/60 font-serif text-copper">SE</span><span><span class="block font-serif text-lg leading-none text-cream">Sezai Eren</span><span class="block text-[10px] uppercase tracking-widest text-copper-light">Yönetim</span></span></a>
