@@ -104,23 +104,52 @@
       else bgm.addEventListener('loadedmetadata', apply, { once: true });
     };
 
+    // Ses dosyası ~2 MB. Mobil veride ilk basışta birkaç saniye sürebilir;
+    // geri bildirim olmazsa düğme bozukmuş gibi hissettiriyor.
+    let busyTimer;
+    const busy = on => {
+      sndBtn.classList.toggle('is-loading', on);
+      clearTimeout(busyTimer);
+      // Emniyet: 'playing' hiç gelmezse yay sonsuza dek dönmesin
+      if (on) busyTimer = setTimeout(() => sndBtn.classList.remove('is-loading'), 12000);
+    };
+    bgm.addEventListener('playing', () => busy(false));
+    bgm.addEventListener('timeupdate', () => busy(false));
+    bgm.addEventListener('waiting', () => busy(true));
+
     const start = () => {
       seekToSaved();
       // iOS'ta volume salt okunurdur; dosya zaten -26 LUFS'a indirildi.
       try { bgm.volume = 0.55; } catch (e) {}
+      if (bgm.readyState < 3) busy(true);
       return bgm.play();
     };
+
+    const fail = msg => {
+      busy(false); wantsOn = false; store.set(K_ON, '0'); paint(false);
+      sndBtn.classList.add('is-error');
+      sndBtn.setAttribute('title', msg);
+      setTimeout(() => sndBtn.classList.remove('is-error'), 2500);
+    };
+
+    // Dosya inmezse (404, kopan bağlantı) sessizce takılı kalmasın
+    bgm.addEventListener('error', () => fail('Ses dosyası yüklenemedi.'));
 
     // Arayüzü hemen güncelle: play() sözü ses gerçekten başlayana kadar
     // çözülmüyor, beklersek düğme geç tepki veriyor. Reddedilirse geri alıyoruz.
     const enable = () => {
       wantsOn = true; store.set(K_ON, '1'); paint(true);
-      return start().catch(() => { wantsOn = false; store.set(K_ON, '0'); paint(false); });
+      return start().catch(err => fail(
+        err && err.name === 'NotAllowedError'
+          ? 'Tarayıcı sesi engelledi. Düğmeye tekrar dokunun.'
+          : 'Ses başlatılamadı.'
+      ));
     };
 
     const disable = () => {
-      savePos(); bgm.pause();
+      savePos(); bgm.pause(); busy(false);
       wantsOn = false; store.set(K_ON, '0'); paint(false);
+      sndBtn.removeAttribute('title');
     };
 
     paint(false);

@@ -72,6 +72,12 @@
   /* Çalarken hafif nabız — sesin açık olduğu tek bakışta anlaşılsın */
   .soundbtn[aria-pressed="true"]::after { content: ''; @apply absolute inset-0 rounded-full border border-gold; animation: soundpulse 2.4s ease-out infinite; }
   @keyframes soundpulse { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(1.5); opacity: 0 } }
+  /* Dosya inerken: dönen yay — basıldığı anlaşılsın, bozuk sanılmasın */
+  .soundbtn.is-loading { @apply border-gold/40; }
+  .soundbtn.is-loading::before { content: ''; @apply absolute inset-[-3px] rounded-full border-2 border-transparent border-t-gold; animation: soundspin .9s linear infinite; }
+  @keyframes soundspin { to { transform: rotate(360deg) } }
+  /* Başlatılamadıysa kısa süre kırmızı kenar */
+  .soundbtn.is-error { @apply border-red-400/70 text-red-300; }
 
   /*
    * Yönetim paneli açık zeminde çalışıyor ve site ile aynı bileşen
@@ -113,5 +119,5 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
-  .soundbtn[aria-pressed="true"]::after { display: none; }
+  .soundbtn[aria-pressed="true"]::after, .soundbtn.is-loading::before { display: none; }
 }
