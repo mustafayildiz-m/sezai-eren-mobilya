@@ -33,6 +33,8 @@ RewriteRule ^ index.php [L,QSA]
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
   ExpiresByType font/woff2 "access plus 1 year"
+  # Fon müziği: tekrar ziyaretlerde 2 MB yeniden inmesin
+  ExpiresByType audio/mpeg "access plus 1 year"
   # app.css / app.js ?v=filemtime ile sürümlendiği için uzun önbellek güvenli
   ExpiresByType text/css "access plus 1 year"
   ExpiresByType application/javascript "access plus 1 year"

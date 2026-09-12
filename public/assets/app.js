@@ -61,5 +61,91 @@
     let sx = 0; lb.addEventListener('touchstart', e => sx = e.touches[0].clientX, { passive: true });
     lb.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - sx; if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1); });
   }
+  // ===== Fon müziği =====
+  // Tarayıcılar (özellikle iOS Safari) dokunma olmadan sesli oynatmaya izin
+  // vermez. Bu yüzden varsayılan kapalı; kullanıcı düğmeye bastığında başlar,
+  // tercihi ve konumu saklanır — çok sayfalı site olduğu için her geçişte
+  // baştan başlamasın.
+  const bgm = document.querySelector('[data-bgm]');
+  const sndBtn = document.querySelector('[data-sound-toggle]');
+  if (bgm && sndBtn) {
+    const K_ON = 'bgm-on', K_POS = 'bgm-pos';
+    const iconOff = sndBtn.querySelector('[data-icon-off]');
+    const iconOn = sndBtn.querySelector('[data-icon-on]');
+
+    // Gizli sekmede / site verisi kapalıyken localStorage erişimi patlayabilir
+    const store = {
+      get(k, d) { try { return localStorage.getItem(k) ?? d; } catch (e) { return d; } },
+      set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    };
+
+    let wantsOn = store.get(K_ON, '0') === '1';
+
+    const paint = on => {
+      sndBtn.setAttribute('aria-pressed', String(on));
+      sndBtn.setAttribute('aria-label', on ? 'Fon müziğini kapat' : 'Fon müziğini aç');
+      if (iconOff) iconOff.hidden = on;
+      if (iconOn) iconOn.hidden = !on;
+    };
+
+    const savePos = () => { if (!bgm.paused && bgm.currentTime > 0) store.set(K_POS, String(bgm.currentTime)); };
+
+    // preload="none" olduğu için süre, oynatma başlayana kadar NaN.
+    // Konumu ancak metadata geldiğinde uygulayabiliriz.
+    const seekToSaved = () => {
+      const pos = parseFloat(store.get(K_POS, '0'));
+      if (!(pos > 0)) return;
+      const apply = () => {
+        if (isFinite(bgm.duration) && pos < bgm.duration - 1) {
+          try { bgm.currentTime = pos; } catch (e) {}
+        }
+      };
+      if (isFinite(bgm.duration) && bgm.duration > 0) apply();
+      else bgm.addEventListener('loadedmetadata', apply, { once: true });
+    };
+
+    const start = () => {
+      seekToSaved();
+      // iOS'ta volume salt okunurdur; dosya zaten -26 LUFS'a indirildi.
+      try { bgm.volume = 0.55; } catch (e) {}
+      return bgm.play();
+    };
+
+    // Arayüzü hemen güncelle: play() sözü ses gerçekten başlayana kadar
+    // çözülmüyor, beklersek düğme geç tepki veriyor. Reddedilirse geri alıyoruz.
+    const enable = () => {
+      wantsOn = true; store.set(K_ON, '1'); paint(true);
+      return start().catch(() => { wantsOn = false; store.set(K_ON, '0'); paint(false); });
+    };
+
+    const disable = () => {
+      savePos(); bgm.pause();
+      wantsOn = false; store.set(K_ON, '0'); paint(false);
+    };
+
+    paint(false);
+    sndBtn.addEventListener('click', () => (bgm.paused ? enable() : disable()));
+
+    // Daha önce açmışsa devam ettirmeyi dene; tarayıcı reddederse ilk
+    // dokunuşta tekrar dene — bu da geçerli bir kullanıcı hareketidir.
+    if (wantsOn) {
+      paint(true);
+      start().catch(() => {
+        paint(false);
+        const resume = () => { if (store.get(K_ON, '0') === '1') enable(); };
+        document.addEventListener('pointerdown', resume, { once: true });
+        document.addEventListener('keydown', resume, { once: true });
+      });
+    }
+
+    // Sekme arkaplana alınınca sustur — pil/veri tasarrufu ve sürpriz ses yok
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) { savePos(); bgm.pause(); }
+      else if (wantsOn && bgm.paused) start().catch(() => {});
+    });
+
+    setInterval(savePos, 5000);
+    window.addEventListener('pagehide', savePos);
+  }
 
 })();

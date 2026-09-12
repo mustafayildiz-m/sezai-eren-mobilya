@@ -1,0 +1,21 @@
+Sitede kullanılan fon müziği
+============================
+
+Parça : "Deliberate Thought"
+Besteci: Kevin MacLeod (incompetech.com)
+Lisans : Creative Commons Attribution 4.0 International (CC BY 4.0)
+         https://creativecommons.org/licenses/by/4.0/
+Kaynak : https://incompetech.com/music/royalty-free/mp3-royaltyfree/Deliberate%20Thought.mp3
+
+CC BY 4.0, ticari kullanıma izin verir ANCAK görünür atıf zorunludur.
+Bu atıf sitenin alt bilgisinde (footer) yer alıyor — kaldırılırsa lisans
+ihlali olur.
+
+Dosya üzerinde yapılan işlemler (lisansın izin verdiği değişiklikler):
+  - mono, 44.1 kHz, 96 kbps MP3'e dönüştürüldü
+  - ses seviyesi -26 LUFS'a düşürüldü (fon müziği seviyesi; iOS'ta
+    JavaScript ile ses kısılamadığı için dosyanın kendisi sakin olmalı)
+  - başa 2 sn açılma, sona 2.5 sn kapanma geçişi eklendi (döngü dikişi)
+
+Parçayı değiştirmek için: bu dosyayı ve ambiance.mp3'ü yenisiyle
+değiştirin, alt bilgideki atıf metnini de güncelleyin.
