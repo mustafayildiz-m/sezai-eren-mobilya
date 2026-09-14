@@ -33,11 +33,12 @@
     const run = el => {
       const target = parseInt(el.dataset.count, 10) || 0; const suffix = el.dataset.suffix || '';
       if (reduced) { el.textContent = target + suffix; return; }
+      el.textContent = '0' + suffix;
       const dur = 1600, start = performance.now();
       const tick = now => { const p = Math.min(1, (now - start) / dur); const e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(target * e) + suffix; if (p < 1) requestAnimationFrame(tick); };
       requestAnimationFrame(tick);
     };
-    const cio = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { run(en.target); cio.unobserve(en.target); } }), { threshold: 0.5 });
+    const cio = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { run(en.target); cio.unobserve(en.target); } }), { threshold: 0.25 });
     counters.forEach(c => cio.observe(c));
   }
 

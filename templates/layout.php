@@ -52,7 +52,7 @@ $wa = 'https://wa.me/' . preg_replace('/\D/', '', $s['whatsapp']) . '?text=' . r
 <meta name="geo.region" content="<?= Ankara::REGION_CODE ?>"><meta name="geo.placename" content="Ankara">
 <meta name="author" content="<?= e($s['site_name']) ?>">
 <link rel="icon" href="data:image/svg+xml,<?= rawurlencode('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#141210"/><text x="32" y="43" font-family="Georgia,serif" font-size="34" text-anchor="middle" fill="#C9A227">SE</text></svg>') ?>">
-<?php if ($path === '/'): ?><link rel="preload" as="image" href="/assets/hero-detail.webp" imagesrcset="/assets/hero-detail-sm.webp 720w, /assets/hero-detail.webp 1200w" imagesizes="(min-width:768px) 45vw, 100vw" fetchpriority="high"><?php endif; ?>
+<?php if ($path === '/'): ?><link rel="preload" as="image" href="/assets/hero-kitchen.webp" imagesrcset="/assets/hero-kitchen-sm.webp 960w, /assets/hero-kitchen.webp 1920w" imagesizes="100vw" fetchpriority="high"><?php endif; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/app.css?v=<?= filemtime(BASE_PATH . '/public/assets/app.css') ?>">

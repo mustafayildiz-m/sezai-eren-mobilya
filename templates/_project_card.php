@@ -10,7 +10,7 @@
     <?php else: ?>
       <div class="grid h-full w-full place-items-center bg-surface2 font-serif text-2xl text-ink-dim">Görsel yok</div>
     <?php endif; ?>
-    <div class="scrim"></div>
+    <div class="scrim-card"></div>
     <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5">
       <span class="text-[10px] uppercase tracking-widest2 text-gold"><?= e($p['category_name'] ?? 'Proje') ?><?= $p['location'] ? ' · ' . e($p['location']) : '' ?></span>
       <h3 class="mt-1.5 font-serif text-lg font-light leading-tight sm:text-xl"><?= e($p['title']) ?></h3>

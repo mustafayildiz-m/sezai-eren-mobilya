@@ -5,25 +5,24 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
 ?>
 
 <!-- HERO -->
-<section class="relative border-b border-line">
-  <div class="grid md:min-h-[88vh] md:grid-cols-[1.05fr_.95fr]">
+<section class="relative isolate flex min-h-[86vh] items-end overflow-hidden md:min-h-[92vh] md:items-center">
+  <img src="/assets/hero-kitchen.webp"
+       srcset="/assets/hero-kitchen-sm.webp 960w, /assets/hero-kitchen.webp 1920w"
+       sizes="100vw" width="1920" height="1080"
+       fetchpriority="high" decoding="async"
+       alt="Ölçüye özel mutfak dolabı — mermer tezgah, ceviz ada ve pirinç detaylar"
+       class="absolute inset-0 -z-10 h-full w-full object-cover animate-kenburns">
 
-    <!-- Telefonda görsel üstte, masaüstünde sağda -->
-    <div class="relative order-1 h-[46vh] min-h-[280px] overflow-hidden md:order-2 md:h-auto">
-      <img src="/assets/hero-detail.webp"
-           srcset="/assets/hero-detail-sm.webp 720w, /assets/hero-detail.webp 1200w"
-           sizes="(min-width:768px) 45vw, 100vw"
-           width="1200" height="1600" fetchpriority="high" decoding="async"
-           alt="Doğal kenar ceviz tabakalı siyah TV ünitesi ve pirinç kulp detayı – Sezai Eren Mobilya"
-           class="h-full w-full object-cover animate-kenburns">
-      <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent md:bg-gradient-to-r md:from-bg md:via-bg/25 md:to-transparent"></div>
-      <!-- Telefonda logo/menü fotoğrafın üstünde okunabilsin diye -->
-      <div class="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-bg via-bg/60 to-transparent md:hidden"></div>
-    </div>
+  <!-- Yazının okunması için perde: telefonda dikey, masaüstünde soldan -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/75 to-bg/30
+              md:bg-gradient-to-r md:from-bg md:via-bg/78 md:to-transparent" aria-hidden="true"></div>
+  <!-- Üstte başlık çubuğu için ek koyuluk -->
+  <div class="absolute inset-x-0 top-0 -z-10 h-32 bg-gradient-to-b from-bg/90 to-transparent" aria-hidden="true"></div>
 
-    <div class="order-2 flex flex-col justify-center px-5 py-14 sm:px-8 md:order-1 md:py-20 lg:px-16">
+  <div class="container-x relative w-full pb-16 pt-32 md:py-24">
+    <div class="max-w-xl">
       <span class="eyebrow animate-fadeUp">Ankara · Ölçüye Özel</span>
-      <h1 class="h1 mt-5 max-w-[15ch] text-balance animate-fadeUp [animation-delay:.1s]">
+      <h1 class="h1 mt-5 text-balance animate-fadeUp [animation-delay:.1s]">
         Yirmi yıllık el,<br><span class="text-gold">tek bir ölçü.</span>
       </h1>
       <p class="lead mt-6 max-w-lg animate-fadeUp [animation-delay:.2s]">
@@ -48,7 +47,9 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
       ['Ankara', 'tüm ilçeler'],
     ] as $i => [$big, $small]): ?>
       <div class="px-3 py-7 <?= $i < 2 ? 'border-b border-line md:border-b-0' : '' ?> <?= $i % 2 === 1 ? 'border-l border-line md:border-l-0' : '' ?>">
-        <div class="font-serif text-2xl font-light text-gold sm:text-3xl"><?= e($big) ?></div>
+        <div class="font-serif text-2xl font-light text-gold sm:text-3xl">
+          <?php if (ctype_digit((string) $big)): ?><span data-count="<?= (int) $big ?>" data-suffix="+"><?= (int) $big ?>+</span><?php else: ?><?= e($big) ?><?php endif; ?>
+        </div>
         <div class="mt-1 text-[11px] uppercase tracking-widest text-ink-dim sm:text-xs"><?= e($small) ?></div>
       </div>
     <?php endforeach; ?>
@@ -77,7 +78,7 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
             <?php else: ?>
               <div class="grid h-full w-full place-items-center bg-surface2 text-3xl" aria-hidden="true"><?= $icons[$i % count($icons)] ?></div>
             <?php endif; ?>
-            <div class="scrim"></div>
+            <div class="scrim-card"></div>
             <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
               <h3 class="h3 leading-tight"><?= e($c['name']) ?></h3>
               <span class="shrink-0 text-xs text-gold"><?= (int) $c['project_count'] ?> proje</span>
@@ -112,7 +113,7 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
                loading="lazy" decoding="async"
                alt="<?= e($big['title']) ?> – <?= e($big['category_name'] ?? '') ?>"
                class="absolute inset-0 h-full w-full object-cover">
-          <div class="scrim"></div>
+          <div class="scrim-card"></div>
           <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7">
             <span class="text-[11px] uppercase tracking-widest2 text-gold"><?= e($big['category_name'] ?? 'Proje') ?><?= $big['location'] ? ' · ' . e($big['location']) : '' ?></span>
             <h3 class="mt-2 font-serif text-2xl font-light leading-tight sm:text-3xl"><?= e($big['title']) ?></h3>
@@ -130,7 +131,7 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
                    loading="lazy" decoding="async"
                    alt="<?= e($p['title']) ?> – <?= e($p['category_name'] ?? '') ?>"
                    class="absolute inset-0 h-full w-full object-cover">
-              <div class="scrim"></div>
+              <div class="scrim-card"></div>
               <div class="absolute inset-x-0 bottom-0 p-4">
                 <span class="text-[10px] uppercase tracking-widest2 text-gold"><?= e($p['category_name'] ?? 'Proje') ?></span>
                 <h3 class="mt-1 font-serif text-lg font-light leading-tight sm:text-xl"><?= e($p['title']) ?></h3>
@@ -143,6 +144,8 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
   </div>
 </section>
 <?php endif; ?>
+
+<div class="container-x"><hr class="rule-gold"></div>
 
 <!-- SÜREÇ -->
 <section class="py-16 md:py-24">
@@ -197,6 +200,8 @@ $icons = ['🍳','🚪','🧥','📺','🛁','🚧','🪜','✨','🏨'];
     </div>
   </div>
 </section>
+
+<div class="container-x"><hr class="rule-gold"></div>
 
 <!-- HİZMET BÖLGESİ -->
 <section class="py-16 md:py-24">

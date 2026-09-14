@@ -1,0 +1,20 @@
+Ana sayfa hero görseli
+======================
+
+Dosya : assets/hero-kitchen.webp (ve -sm sürümü)
+Kaynak: Unsplash — https://unsplash.com/photos/<foto-1556912172-45b7abe8b7e1>
+Lisans: Unsplash License — ticari kullanıma serbest, atıf gerekmez
+        https://unsplash.com/license
+
+ÖNEMLİ: Bu fotoğraf Sezai Eren Mobilya'nın işi DEĞİLDİR. Ana sayfada
+yalnızca ortam/atmosfer görseli olarak kullanılır. Bilerek:
+  - proje galerisine eklenmemiştir
+  - altında konum, açıklama veya "tamamladığımız iş" ifadesi yoktur
+  - hiçbir projeye kapak yapılmamıştır
+
+Projeler bölümündeki tüm fotoğraflar gerçek işlerdir ve öyle kalmalıdır.
+Sezai usta'dan iyi bir mutfak fotoğrafı geldiğinde bu dosyayı onunla
+değiştirmek yeterli; başka hiçbir yeri güncellemek gerekmez.
+
+Üzerinde yapılan işlemler: 16:9 kırpma, parlaklık düşürme, sıcak gölge,
+vinyet, WebP'ye dönüştürme.
