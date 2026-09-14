@@ -70,8 +70,6 @@
   const sndBtn = document.querySelector('[data-sound-toggle]');
   if (bgm && sndBtn) {
     const K_ON = 'bgm-on', K_POS = 'bgm-pos';
-    const iconOff = sndBtn.querySelector('[data-icon-off]');
-    const iconOn = sndBtn.querySelector('[data-icon-on]');
 
     // Gizli sekmede / site verisi kapalıyken localStorage erişimi patlayabilir
     const store = {
@@ -84,8 +82,7 @@
     const paint = on => {
       sndBtn.setAttribute('aria-pressed', String(on));
       sndBtn.setAttribute('aria-label', on ? 'Fon müziğini kapat' : 'Fon müziğini aç');
-      if (iconOff) iconOff.hidden = on;
-      if (iconOn) iconOn.hidden = !on;
+      // İkon değişimini CSS yapıyor (aria-pressed'e bağlı) — bkz. input.css
     };
 
     const savePos = () => { if (!bgm.paused && bgm.currentTime > 0) store.set(K_POS, String(bgm.currentTime)); };

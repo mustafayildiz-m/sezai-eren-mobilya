@@ -68,10 +68,20 @@
   .soundbtn { @apply fixed right-4 z-40 grid h-12 w-12 place-items-center rounded-full border border-gold/35 bg-surface/95 text-gold backdrop-blur transition hover:border-gold hover:bg-gold hover:text-bg md:right-6;
     bottom: calc(56px + env(safe-area-inset-bottom, 0px) + 14px); }
   @media (min-width: 768px) { .soundbtn { bottom: 1.5rem; } }
-  .soundbtn[aria-pressed="true"] { @apply border-gold bg-gold text-bg; }
-  /* Çalarken hafif nabız — sesin açık olduğu tek bakışta anlaşılsın */
-  .soundbtn[aria-pressed="true"]::after { content: ''; @apply absolute inset-0 rounded-full border border-gold; animation: soundpulse 2.4s ease-out infinite; }
-  @keyframes soundpulse { 0% { transform: scale(1); opacity: .6 } 100% { transform: scale(1.5); opacity: 0 } }
+  /* Çalarken: altın kenar ve ikon. Dolu altın zemin + sonsuz nabız
+     "takılı kalmış" gibi duruyordu, kaldırıldı. */
+  .soundbtn[aria-pressed="true"] { @apply border-gold text-gold; }
+
+  /*
+   * İkon değişimi JavaScript yerine CSS ile, tek doğruluk kaynağı
+   * aria-pressed. Daha önce JS `hidden` özelliğini yönetiyordu ve ikonlar
+   * durumla senkronsuz kalabiliyordu.
+   * Mantık "basınca ne olur": sessizken dalgalı (aç), çalarken çarpılı (sustur).
+   */
+  .soundbtn [data-icon-play] { display: block; }
+  .soundbtn [data-icon-mute] { display: none; }
+  .soundbtn[aria-pressed="true"] [data-icon-play] { display: none; }
+  .soundbtn[aria-pressed="true"] [data-icon-mute] { display: block; }
   /* Dosya inerken: dönen yay — basıldığı anlaşılsın, bozuk sanılmasın */
   .soundbtn.is-loading { @apply border-gold/40; }
   .soundbtn.is-loading::before { content: ''; @apply absolute inset-[-3px] rounded-full border-2 border-transparent border-t-gold; animation: soundspin .9s linear infinite; }
@@ -119,5 +129,5 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
-  .soundbtn[aria-pressed="true"]::after, .soundbtn.is-loading::before { display: none; }
+  .soundbtn.is-loading::before { display: none; }
 }
